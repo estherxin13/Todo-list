@@ -37,7 +37,6 @@ cardDone: {
   marginRight: theme.spacing(5),
   marginLeft: theme.spacing(5),
   borderRadius: 10,
-  // backgroundColor: 'rgb(191,221,219,60%)'
 },
 
 }));
