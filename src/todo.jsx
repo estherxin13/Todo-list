@@ -1,6 +1,7 @@
 import { Button, Checkbox, ListItem, ListItemText, makeStyles } from '@material-ui/core';
 import {  useState } from 'react';
 import { db } from './firebase_config';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
 
@@ -28,6 +29,10 @@ function Todo({ title, inProgress, id }) {
         })
     }
 
+    function deleteTodo() {
+        db.collection("todos").doc(id).delete(); 
+    }
+
     return (
         <div className={classes.button}>
             <ListItem className={classes.root}>
@@ -40,7 +45,8 @@ function Todo({ title, inProgress, id }) {
                     onChange={toggle}
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
-                <Button>X
+                <Button onClick={deleteTodo}>
+                    <DeleteIcon />
                 </Button>
             </div>
         </div>
