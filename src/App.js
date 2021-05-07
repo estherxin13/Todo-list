@@ -1,21 +1,25 @@
-import './App.css';
+import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles(theme => ({
+
+  title: {
+    fontSize: 30,
+
+  },
+  app: {
+    textAlign: 'center'
+  }
+
+}));
 
 function App() {
+  const styles = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app} >
+      <div className={styles.title}>My ToDO App 😎</div>
+      <TextField id="standard-basic" label="Write a Todo" />
     </div>
   );
 }
