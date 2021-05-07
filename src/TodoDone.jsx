@@ -10,17 +10,22 @@ const useStyles = makeStyles(theme => ({
         margin: 'auto',
         width: '100%',
         maxWidth: 360,
-        '&&':{
-            paddingTop: 0,
-            paddingBottom: 0,
-        }
     },
     button: {
         display: 'flex',
     },
+    listDone: {
+        textDecoration: 'line-through',
+    },
+    card: {
+        width: 600,
+        margin: 'auto',
+        padding: theme.spacing(5),
+        marginTop: theme.spacing(5),
+    }
 }));
 
-function Todo({ title, inProgress, id }) {
+function TodoDone({ title, inProgress, id }) {
     const classes = useStyles();
 
     function toggle(event) {
@@ -36,12 +41,12 @@ function Todo({ title, inProgress, id }) {
     return (
         <>
 
-            {inProgress &&
+            {!inProgress &&
                 <div className={classes.button}>
                     <ListItem className={classes.root}>
-                        <ListItemText
+                        <ListItemText className={classes.listDone}
                             primary={title}
-                            secondary="to be finished" />
+                            secondary="finished" />
                         </ListItem>
                     <div>
                         <Button onClick={toggle}>
@@ -58,4 +63,4 @@ function Todo({ title, inProgress, id }) {
     );
 }
 
-export default Todo;
+export default TodoDone;

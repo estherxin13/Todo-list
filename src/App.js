@@ -1,28 +1,44 @@
-import { Button, Card, makeStyles } from '@material-ui/core';
+import { Box, Button, Divider, makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useEffect, useState } from 'react';
 import { db } from './firebase_config';
 import firebase from "firebase";
 import Todo from './todo';
+import TodoDone from './TodoDone';
 
 const useStyles = makeStyles(theme => ({
 
   title: {
-    fontSize: 30,
-
+    marginBottom: theme.spacing(5),
   },
   app: {
-    textAlign: 'center'
+    textAlign: 'center',
+    margin: theme.spacing(5),
   },
   textBox: {
     minWidth: 500,
+    marginBottom: theme.spacing(5),
   },
   card: {
     width: 600,
     margin: 'auto',
-    padding: theme.spacing(5),
     marginTop: theme.spacing(5),
-  }
+    marginRight: theme.spacing(5),
+    marginLeft: theme.spacing(5),
+    borderRadius: 10,
+  },
+  cards: {
+  display: 'flex',
+},
+cardDone: {
+  width: 600,
+  margin: 'auto',
+  marginTop: theme.spacing(5),
+  marginRight: theme.spacing(5),
+  marginLeft: theme.spacing(5),
+  borderRadius: 10,
+  // backgroundColor: 'rgb(191,221,219,60%)'
+},
 
 }));
 
@@ -47,7 +63,6 @@ function App() {
       );
     });
   }
-
   function addTodo(e) {
     e.preventDefault();
     db.collection("todos").add({
@@ -61,11 +76,10 @@ function App() {
 
   return (
     <div className={styles.app} >
-      <Card className={styles.card}>
-      <div className={styles.title}>My ToDO App 😎</div>
+      <div className={styles.title}><h1>Esther Xin's To-Do List</h1></div>
       <form>
         <TextField
-          className = {styles.textBox}
+          className={styles.textBox}
           value={input}
           onChange={(e) => {
             setInput(e.target.value)
@@ -78,16 +92,34 @@ function App() {
         </Button>
         </div>
       </form>
-      {todos.map((title) => (
-        <p>
-          <Todo 
-          title={title.title}
-          inProgress={title.inProgress}
-          id={title.id}
-          />
-        </p>
-      ))}
-      </Card>
+      <div className={styles.cards}>
+      <Box boxShadow={3} className={styles.card}>
+        <h3>in progress</h3>
+        <Divider variant="middle" />
+        {todos.map((title) => (
+          <p>
+            <Todo
+              title={title.title}
+              inProgress={title.inProgress}
+              id={title.id}
+            />
+          </p>
+        ))}
+      </Box>
+      <Box boxShadow={3} className={styles.cardDone}>
+        <h3>done</h3>
+        <Divider variant="middle" />
+        {todos.map((title) => (
+          <p>
+            <TodoDone
+              title={title.title}
+              inProgress={title.inProgress}
+              id={title.id}
+            />
+          </p>
+        ))}
+      </Box>
+      </div>
     </div>
   );
 }
